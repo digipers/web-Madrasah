@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MA. Ash Shidiqi Rajabasa Baru</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config={
+  theme:{
+    extend:{
+      colors:{
+        primary:{DEFAULT:'#0B5D3B',dark:'#084229'},
+        gold:{DEFAULT:'#D4AF37', light:'#F4D03F'},
+        aqua:{DEFAULT:'#00FFFF'}
+      },
+      fontFamily:{
+        heading:['Poppins','sans-serif'],
+        body:['Inter','sans-serif']
+      }
+    }
+  }
+}
+</script>
+<style>
+body{font-family:Inter,sans-serif; background-color: #00FFFF;}
+h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
+.hero-bg {
+  background-image: linear-gradient(to right, rgba(8, 66, 41, 0.95), rgba(11, 93, 59, 0.85)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+}
+.card-hover{transition:all 0.3s ease}
+.card-hover:hover{transform:translateY(-4px);box-shadow:0 15px 30px rgba(0,0,0,0.1)}
+.btn-primary{background:#0B5D3B;color:white;transition:0.3s}.btn-primary:hover{background:#084229}
+.field{display:block;width:100%;border:1px solid #d1d5db;border-radius:8px;padding:9px;margin-top:5px;background:white}
+.loader{border:3px solid #eee;border-top:3px solid #0B5D3B;border-radius:50%;width:36px;height:36px;animation:spin 1s linear infinite;margin:20px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+</style>
+</head>
+<body class="text-gray-800 antialiased overflow-x-hidden">
+
+<!-- TOPBAR -->
+<div class="bg-primary-dark text-white text-xs py-2 hidden md:block">
+  <div class="container mx-auto px-6 flex justify-between items-center">
+    <div class="flex gap-4">
+      <span><i class="fas fa-envelope mr-2 text-gold"></i> <span id="topbarEmail">info@maashshidiqi.sch.id</span></span>
+      <span><i class="fas fa-phone mr-2 text-gold"></i> <span id="topbarPhone">(0721) 123456</span></span>
+    </div>
+    <div class="flex gap-4">
+      <a href="#" class="hover:text-gold transition"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="hover:text-gold transition"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="hover:text-gold transition"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER / NAVBAR -->
+<header class="bg-white shadow-sm sticky top-0 z-40">
+  <div class="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
+    <a href="#" onclick="showPage('beranda');return false" class="flex items-center gap-2">
+      <img id="schoolLogo" src="https://ui-avatars.com/api/?name=MA&size=100&background=0B5D3B&color=fff" class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-gold shadow-sm" alt="Logo sekolah">
+      <div>
+        <h1 id="schoolName" class="font-heading font-bold text-primary text-sm md:text-lg leading-tight uppercase tracking-wide">MA. Ash Shidiqi</h1>
+        <p class="text-[10px] md:text-xs text-gray-500 font-medium">Rajabasa Baru</p>
+      </div>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-4 xl:gap-6 font-semibold text-sm xl:text-base text-blue-700">
+      <a href="#" onclick="showPage('beranda');return false" class="text-blue-900 font-bold border-b-2 border-blue-700 pb-1">Beranda</a>
+      <a href="#" onclick="showPage('berita');return false" class="hover:text-blue-500 transition">Berita</a>
+      <a href="#" onclick="showPage('profil');return false" class="hover:text-blue-500 transition">Profil</a>
+      <a href="#" onclick="showPage('guru');return false" class="hover:text-blue-500 transition">Guru</a>
+      <a href="#" onclick="showPage('galeri');return false" class="hover:text-blue-500 transition">Galeri</a>
+      <a href="#" onclick="showPage('pengumuman');return false" class="hover:text-blue-500 transition">Pengumuman</a>
+      <a href="#" onclick="showPage('bse');return false" class="hover:text-blue-500 transition">BSE</a>
+      <a href="#" onclick="showPage('download');return false" class="hover:text-blue-500 transition">Download</a>
+      <a href="#" onclick="showPage('kontak');return false" class="hover:text-blue-500 transition">Kontak</a>
+      <button onclick="openPPDBForm()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold shadow-md transition duration-300 ml-2">PPDB</button>
+    </nav>
+
+    <button id="menuBtn" class="lg:hidden text-2xl text-primary p-2 focus:outline-none" aria-label="Buka menu"><i class="fas fa-bars"></i></button>
+  </div>
+
+  <nav id="mobileNav" class="hidden lg:hidden px-4 pb-4 bg-white border-t border-gray-100 flex flex-col gap-1 text-base font-semibold text-blue-700 shadow-lg absolute w-full">
+    <a href="#" onclick="showPage('beranda');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">Beranda</a>
+    <a href="#" onclick="showPage('berita');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">Berita</a>
+    <a href="#" onclick="showPage('profil');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">Profil</a>
+    <a href="#" onclick="showPage('guru');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">Guru</a>
+    <a href="#" onclick="showPage('galeri');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">Galeri</a>
+    <a href="#" onclick="showPage('pengumuman');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">Pengumuman</a>
+    <a href="#" onclick="showPage('bse');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">BSE</a>
+    <a href="#" onclick="showPage('download');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">Download</a>
+    <a href="#" onclick="showPage('kontak');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">Kontak</a>
+    <button onclick="openPPDBForm()" class="bg-blue-600 text-white p-3 rounded-lg mt-3 font-bold shadow-md hover:bg-blue-700 transition">Daftar PPDB</button>
+  </nav>
+</header>
+
+<main class="pb-16">
+<!-- ================= HALAMAN BERANDA ================= -->
+<section id="page-beranda" class="page-section">
+ <div class="hero-bg text-white py-10 md:py-16 relative">
+  <div class="container mx-auto px-4 md:px-6 relative z-10 text-center md:text-left">
+    <div class="max-w-2xl">
+      <span class="bg-gold text-primary-dark text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block shadow-sm">Selamat Datang</span>
+      <h1 id="heroTagline" class="text-2xl md:text-4xl font-bold leading-tight mb-3">Mencetak Generasi <br><span class="text-gold">Qur'ani & Berprestasi</span></h1>
+      <p class="text-xs md:text-base text-gray-200 leading-relaxed max-w-xl mx-auto md:mx-0">Selamat datang di website resmi MA. Ash Shidiqi Rajabasa Baru. Sarana informasi, sosialisasi, dan silaturahmi madrasah.</p>
+    </div>
+  </div>
+ </div>
+
+ <div class="container mx-auto px-4 md:px-6 mt-8 md:mt-10">
+  <div class="grid lg:grid-cols-4 gap-6">
+    <div class="lg:col-span-3">
+      <div class="flex justify-between items-end mb-4 md:mb-6 border-b border-blue-800/20 pb-3">
+        <div><h2 class="text-lg md:text-xl font-bold text-primary-dark mb-1">Berita Terbaru</h2></div>
+      </div>
+      <div id="newsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5"><div class="loader col-span-full"></div></div>
+    </div>
+
+    <div class="lg:col-span-1 mt-6 lg:mt-0">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-5 sticky top-24">
+        <h3 class="font-bold text-md text-gray-800 mb-3 border-b pb-2">Ikuti Kami</h3>
+        <div class="space-y-2 flex flex-row lg:flex-col gap-2 overflow-x-auto">
+          <a href="https://youtube.com" target="_blank" class="group flex items-center gap-3 w-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md whitespace-nowrap"><div class="bg-white text-red-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-youtube"></i></div><span>YouTube</span></a>
+          <a href="https://facebook.com" target="_blank" class="group flex items-center gap-3 w-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md whitespace-nowrap"><div class="bg-white text-blue-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-facebook-f"></i></div><span>Facebook</span></a>
+          <a href="https://instagram.com" target="_blank" class="group flex items-center gap-3 w-full bg-pink-50 text-pink-600 hover:bg-pink-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md whitespace-nowrap"><div class="bg-white text-pink-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-instagram"></i></div><span>Instagram</span></a>
+          <a href="https://www.tiktok.com/@ma.ashshidiqi" target="_blank" class="group flex items-center gap-3 w-full bg-gray-100 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md whitespace-nowrap">
+            <div class="bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-tiktok"></i></div>
+            <span>TikTok</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= HALAMAN BERITA ================= -->
+<section id="page-berita" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12">
+ <div class="text-center mb-10 md:mb-12"><h2 class="text-2xl md:text-3xl font-bold text-primary-dark mb-2">Semua Berita</h2><div class="w-16 h-1 bg-gold mx-auto rounded-full"></div></div>
+ <div id="newsGridFull" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+   <div class="loader col-span-full"></div>
+ </div>
+</section>
+
+<!-- ================= HALAMAN PENGUMUMAN ================= -->
+<section id="page-pengumuman" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12 max-w-4xl">
+ <div class="text-center mb-8 md:mb-10"><h2 class="text-2xl md:text-3xl font-bold text-primary-dark mb-2">Pengumuman Madrasah</h2><div class="w-16 h-1 bg-gold mx-auto rounded-full"></div></div>
+ <div id="announcementList" class="space-y-4"><div class="loader"></div></div>
+</section>
+
+<!-- ================= HALAMAN BSE ================= -->
+<section id="page-bse" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12">
+ <div class="text-center mb-8 md:mb-10"><h2 class="text-2xl md:text-3xl font-bold text-primary-dark mb-2">Buku Sekolah Elektronik (BSE)</h2><div class="w-16 h-1 bg-gold mx-auto rounded-full"></div><p class="text-xs md:text-sm text-gray-800 font-medium mt-4 max-w-2xl mx-auto">Silakan akses dan unduh buku pelajaran digital resmi melalui tautan di bawah ini.</p></div>
+ <div id="bseGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
+   <div class="loader col-span-full"></div>
+ </div>
+</section>
+
+<!-- ================= HALAMAN DOWNLOAD ================= -->
+<section id="page-download" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12 max-w-4xl">
+ <div class="text-center mb-8 md:mb-10"><h2 class="text-2xl md:text-3xl font-bold text-primary-dark mb-2">Pusat Unduhan</h2><div class="w-16 h-1 bg-gold mx-auto rounded-full"></div><p class="text-xs md:text-sm text-gray-800 font-medium mt-4">Unduh berkas penting, formulir, dan panduan akademik madrasah.</p></div>
+ <div id="downloadList" class="space-y-4">
+   <div class="loader"></div>
+ </div>
+</section>
+
+<!-- ================= HALAMAN DETAIL BERITA ================= -->
+<section id="page-detail-berita" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12 max-w-4xl">
+ <button onclick="showPage('berita')" class="mb-6 text-primary-dark font-bold hover:underline text-sm md:text-base"><i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar Berita</button>
+ <article class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+  <img id="detailImage" class="w-full max-h-[300px] md:max-h-[400px] object-cover hidden" alt="">
+  <div class="p-6 md:p-10">
+    <span id="detailCategory" class="text-[10px] md:text-xs font-bold text-primary bg-green-50 px-3 py-1.5 rounded-full uppercase tracking-wide">Umum</span>
+    <h1 id="detailTitle" class="text-xl md:text-3xl font-bold text-gray-800 mt-3 md:mt-4 mb-2 md:mb-3 leading-snug"></h1>
+    <p id="detailDate" class="text-xs md:text-sm text-gray-500 mb-6 md:mb-8 border-b pb-4"><i class="far fa-calendar-alt mr-2"></i> -</p>
+    <div id="detailContent" class="text-gray-700 leading-relaxed whitespace-pre-line text-justify text-sm md:text-lg"></div>
+  </div>
+ </article>
+</section>
+
+<!-- ================= HALAMAN PROFIL ================= -->
+<section id="page-profil" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12">
+ <div class="text-center mb-8 md:mb-12">
+   <h2 class="text-2xl md:text-3xl font-bold text-primary-dark mb-2">Profil Madrasah</h2>
+   <div class="w-16 h-1 bg-gold mx-auto rounded-full"></div>
+ </div>
+ <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 md:gap-10 bg-white p-6 md:p-10 rounded-2xl shadow-lg border border-gray-100 items-start">
+  <div class="text-center sticky top-24">
+    <img id="headmasterPhoto" src="https://ui-avatars.com/api/?name=Kepala+Madrasah&size=300&background=0B5D3B&color=fff" class="w-40 h-40 md:w-56 md:h-56 rounded-full mx-auto object-cover border-4 border-gold shadow-xl" alt="Foto Kepala Madrasah">
+    <h3 id="headmasterName" class="mt-4 md:mt-6 font-bold text-xl md:text-2xl text-primary">Kepala Madrasah</h3>
+    <p class="text-xs md:text-sm text-gray-500 font-medium mt-1">Kepala Madrasah</p>
+  </div>
+  <div class="md:col-span-2 text-left mt-4 md:mt-0">
+    <i class="fas fa-quote-left text-3xl md:text-4xl text-gray-200 mb-3 md:mb-4 block"></i>
+    <p id="headmasterGreeting" class="text-gray-700 whitespace-pre-line leading-relaxed text-sm md:text-lg italic">Assalamu'alaikum warahmatullahi wabarakatuh.</p>
+  </div>
+ </div>
+</section>
+
+<!-- ================= HALAMAN GURU ================= -->
+<section id="page-guru" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12">
+ <div class="text-center mb-8 md:mb-12"><h2 class="text-2xl md:text-3xl font-bold text-primary-dark mb-2">Guru & Tenaga Kependidikan</h2><div class="w-16 h-1 bg-gold mx-auto rounded-full"></div></div>
+ <div id="teachersGrid" class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6"><div class="loader col-span-full"></div></div>
+</section>
+
+<!-- ================= HALAMAN DETAIL GURU ================= -->
+<section id="page-detail-guru" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12 max-w-md">
+ <button onclick="showPage('guru')" class="mb-6 text-primary-dark font-bold hover:underline text-sm md:text-base"><i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar Guru</button>
+ <div class="bg-white rounded-2xl shadow-xl border border-gray-100 text-center p-6 md:p-8">
+   <img id="teacherDetailPhoto" class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto object-cover border-4 border-gold mb-4 md:mb-6 shadow-md" alt="">
+   <h1 id="teacherDetailName" class="text-xl md:text-2xl font-bold text-gray-800"></h1><p id="teacherDetailPosition" class="text-sm md:text-base text-primary font-medium mb-4 md:mb-6"></p>
+   <div class="border-t pt-4 md:pt-6 text-left bg-gray-50 rounded-xl p-4"><p class="text-xs md:text-sm text-gray-500">NIP</p><p id="teacherDetailNip" class="font-semibold mb-3 text-gray-800 text-sm md:text-base">-</p><p class="text-xs md:text-sm text-gray-500">Mata Pelajaran</p><p id="teacherDetailSubject" class="font-semibold text-gray-800 text-sm md:text-base">-</p></div>
+ </div>
+</section>
+
+<!-- ================= HALAMAN GALERI ================= -->
+<section id="page-galeri" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12">
+ <div class="text-center mb-8 md:mb-12"><h2 class="text-2xl md:text-3xl font-bold text-primary-dark mb-2">Galeri Kegiatan</h2><div class="w-16 h-1 bg-gold mx-auto rounded-full"></div></div>
+ <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"><div class="loader col-span-full"></div></div>
+</section>
+
+<!-- ================= HALAMAN KONTAK ================= -->
+<section id="page-kontak" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12 max-w-5xl">
+ <div class="text-center mb-8 md:mb-12"><h2 class="text-2xl md:text-3xl font-bold text-primary-dark mb-2">Kontak & Lokasi</h2><div class="w-16 h-1 bg-gold mx-auto rounded-full"></div></div>
+ <div class="grid md:grid-cols-2 gap-6 md:gap-8 bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+   <div class="space-y-4 md:space-y-6">
+     <div class="flex gap-3 md:gap-4 items-start"><div class="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-map-marker-alt text-primary text-sm md:text-base"></i></div><div><h4 class="font-bold text-gray-800 mb-1 text-sm md:text-base">Alamat</h4><p id="contactAddress" class="text-gray-600 text-xs md:text-sm leading-relaxed">-</p></div></div>
+     <div class="flex gap-3 md:gap-4 items-start"><div class="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-phone text-primary text-sm md:text-base"></i></div><div><h4 class="font-bold text-gray-800 mb-1 text-sm md:text-base">Telepon</h4><p id="contactPhone" class="text-gray-600 text-xs md:text-sm">-</p></div></div>
+     <div class="flex gap-3 md:gap-4 items-start"><div class="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-envelope text-primary text-sm md:text-base"></i></div><div><h4 class="font-bold text-gray-800 mb-1 text-sm md:text-base">Email</h4><p id="contactEmail" class="text-gray-600 text-xs md:text-sm">-</p></div></div>
+   </div>
+   <div id="mapContainer" class="rounded-xl overflow-hidden bg-gray-100 min-h-[250px] md:min-h-[300px] flex items-center justify-center text-gray-500 shadow-inner border border-gray-200 text-xs md:text-sm">Peta Lokasi Belum Diatur</div>
+ </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-primary-dark text-white py-5 md:py-6 mt-12 border-t-8 border-gold">
+  <div class="container mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
+    <div class="text-center md:text-left">
+      <p class="text-xs md:text-sm text-gray-400">&copy; <span id="year"></span> MA. Ash Shidiqi Rajabasa Baru.</p>
+      <p class="text-xs md:text-sm text-gray-400 mt-1">
+        <i class="fas fa-eye text-gold mr-1"></i> Total Pengunjung: <span id="visitorCount" class="font-bold text-white">Memuat...</span>
+      </p>
+    </div>
+    <!-- Link ke Admin Panel disembunyikan/tidak ada di halaman publik -->
+  </div>
+</footer>
+
+<!-- ================= MODAL PPDB ================= -->
+<div id="ppdbModal" class="hidden fixed inset-0 bg-black/70 z-[990] flex items-center justify-center p-2 md:p-3 backdrop-blur-sm">
+ <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[95vh] overflow-y-auto shadow-2xl">
+  <div class="sticky top-0 bg-white p-4 md:p-5 border-b flex justify-between items-center z-10 rounded-t-2xl"><h3 class="text-lg md:text-xl font-bold text-primary">Formulir Pendaftaran PPDB</h3><button onclick="closeModal('ppdbModal')" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-red-100 hover:text-red-600 transition text-xl font-bold">&times;</button></div>
+  <form id="ppdbForm" class="p-4 md:p-6 space-y-4 md:space-y-6">
+   <div class="bg-green-50 p-3 md:p-4 rounded-xl border border-green-100 mb-4 md:mb-6"><h4 class="font-bold text-primary text-sm md:text-base">A. Data Calon Peserta Didik</h4></div>
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+    <label class="text-xs md:text-sm font-medium text-gray-700">Nama Lengkap *<input name="full_name" required class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">NISN<input name="nisn" class="field"></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700">NIK<input name="nik" class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">Jenis Kelamin *<select name="gender" required class="field"><option value="">Pilih</option><option value="L">Laki-laki</option><option value="P">Perempuan</option></select></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700">Tempat Lahir *<input name="birth_place" required class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">Tanggal Lahir *<input type="date" name="birth_date" required class="field"></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700">Agama *<input name="agama" value="Islam" required class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">No. HP/WhatsApp *<input name="phone" required type="tel" class="field"></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700 md:col-span-2">Alamat Lengkap *<textarea name="address" required rows="2" class="field"></textarea></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700">Asal Sekolah *<input name="previous_school" required class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">Tahun Lulus *<input name="tahun_lulus" type="number" required class="field"></label>
+   </div>
+
+   <div class="bg-green-50 p-3 md:p-4 rounded-xl border border-green-100 mt-6 md:mt-8 mb-4 md:mb-6"><h4 class="font-bold text-primary text-sm md:text-base">B. Data Orang Tua / Wali</h4></div>
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+    <label class="text-xs md:text-sm font-medium text-gray-700">Nama Ayah *<input name="father_name" required class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">NIK Ayah<input name="nik_ayah" class="field"></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700">Pekerjaan Ayah<input name="pekerjaan_ayah" class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">Nama Ibu *<input name="mother_name" required class="field"></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700">NIK Ibu<input name="nik_ibu" class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">Pekerjaan Ibu<input name="pekerjaan_ibu" class="field"></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700">Nama Wali<input name="nama_wali" class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">No. HP Orang Tua *<input name="hp_ortu" required class="field"></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700 md:col-span-2">Alamat Orang Tua<textarea name="alamat_ortu" rows="2" class="field"></textarea></label>
+   </div>
+
+   <div class="bg-green-50 p-3 md:p-4 rounded-xl border border-green-100 mt-6 md:mt-8 mb-4 md:mb-6"><h4 class="font-bold text-primary text-sm md:text-base">C. Berkas Persyaratan (Maks 5 MB)</h4></div>
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+    <label class="text-xs md:text-sm font-medium text-gray-700">Pas Foto 3x4 *<input type="file" id="file_pas_foto" accept="image/*" required class="field p-2 text-xs"></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700">Fotokopi KK *<input type="file" id="file_kk" accept="image/*,application/pdf" required class="field p-2 text-xs"></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700">Ijazah/SKL *<input type="file" id="file_ijazah" accept="image/*,application/pdf" required class="field p-2 text-xs"></label>
+    <label class="text-xs md:text-sm font-medium text-gray-700">Kartu PIP/PKH/SKTM<input type="file" id="file_pip" accept="image/*,application/pdf" class="field p-2 text-xs"></label>
+   </div>
+   <p id="ppdbStatus" class="text-xs md:text-sm text-blue-700 font-medium"></p>
+   <button id="btnSubmitPPDB" class="btn-primary w-full py-3 md:py-3.5 rounded-xl font-bold text-sm md:text-lg shadow-lg hover:shadow-xl">Kirim Pendaftaran</button>
+  </form>
+ </div>
+</div>
+
+<script>
+const API_URL='https://script.google.com/macros/s/AKfycbxbBWp7Yw4SQ4KyQwMo-st0IDb4GUc9q3ARwVgX1quagn7Y33cG0F3FOv9rzwyZQFNG/exec';
+const ALLOWED_MIME=['image/jpeg','image/png','image/webp','application/pdf'];
+
+async function api(action,params={},useToken=false){
+ const controller=new AbortController();
+ const timer=setTimeout(()=>controller.abort(),30000);
+ try{
+  const postActions=['uploadPPDBFile','submitPPDB','addVisitor'];
+  if(postActions.includes(action)){
+   const body={...params,action};
+   const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body),signal:controller.signal});
+   return response.json();
+  }
+  const query=new URLSearchParams({action,_t:String(Date.now())});
+  Object.entries(params).forEach(([k,v])=>query.append(k,typeof v==='object'?JSON.stringify(v):String(v)));
+  const response=await fetch(API_URL+'?'+query.toString(),{cache:'no-store',signal:controller.signal});
+  return response.json();
+ }catch(err){
+  if(err.name==='AbortError')return{success:false,message:'Koneksi lambat. Silakan coba lagi.'};
+  throw err;
+ }finally{
+  clearTimeout(timer);
+ }
+}
+
+function showPage(name){
+ document.querySelectorAll('.page-section').forEach(el=>el.classList.add('hidden'));
+ const target=document.getElementById('page-'+name);if(target)target.classList.remove('hidden');
+ document.getElementById('mobileNav').classList.add('hidden');window.scrollTo({top:0,behavior:'smooth'});
+}
+function closeModal(id){document.getElementById(id).classList.add('hidden')}
+function openPPDBForm(){document.getElementById('ppdbModal').classList.remove('hidden')}
+function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+function fallbackAvatar(name,size=200){return 'https://ui-avatars.com/api/?name='+encodeURIComponent(name||'MA')+'&size='+size+'&background=0B5D3B&color=fff'}
+
+function getDirectImageUrl(url){
+ if(!url)return '';
+ let strUrl=String(url).trim();
+ if(strUrl.includes('drive.google.com')){
+  const fileIdMatch=strUrl.match(/[-\w]{25,}/);
+  if(fileIdMatch)return `https://drive.google.com/thumbnail?id=${fileIdMatch[0]}&sz=w500`;
+ }
+ return strUrl;
+}
+
+function safeUrl(url){
+ if(!url)return '';
+ try{
+  const u=new URL(String(url).trim(),location.href);
+  if(!['http:','https:'].includes(u.protocol))return '';
+  return u.href;
+ }catch{return ''}
+}
+
+function safeMapsUrl(url){
+ if(!url)return '';
+ try{
+  let str = String(url).trim();
+  if(str.includes('<iframe')) {
+    const match = str.match(/src="([^"]+)"/);
+    if(match && match[1]) str = match[1];
+  }
+  if (!str.startsWith('http')) str = 'https://' + str;
+  const u = new URL(str);
+  if(u.protocol !== 'https:') return '';
+  if (u.pathname.startsWith('/maps/embed')) return u.href;
+  const coordMatch = str.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+  if (coordMatch) {
+    const lat = coordMatch[1]; const lng = coordMatch[2];
+    return `https://maps.google.com/maps?q=${lat},${lng}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  }
+  if (/(^|\.)google\.com$/.test(u.hostname)) return u.href;
+  return '';
+ } catch { return ''; }
+}
+
+function normalizeSettings(data){
+ if(Array.isArray(data))return data[0]||{};
+ return data||{};
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+ document.getElementById('year').textContent=new Date().getFullYear();
+ document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('mobileNav').classList.toggle('hidden'));
+
+ document.getElementById('newsGrid').addEventListener('click',e=>{
+  const card=e.target.closest('.news-card');if(card)openNewsDetail(card.dataset.id);
+ });
+ document.getElementById('newsGridFull').addEventListener('click',e=>{
+  const card=e.target.closest('.news-card');if(card)openNewsDetail(card.dataset.id);
+ });
+ document.getElementById('teachersGrid').addEventListener('click',e=>{
+  const card=e.target.closest('.teacher-card');if(card)openTeacherDetail(card.dataset.id);
+ });
+
+ showPage('beranda');
+ loadSettings();
+ loadTeachers();
+ loadNews();
+ loadAnnouncements();
+ loadGallery();
+ loadDocuments();
+ loadVisitorCounter();
+});
+
+async function loadVisitorCounter() {
+  const el = document.getElementById('visitorCount');
+  try {
+    let count = 0;
+    if (!sessionStorage.getItem('hasVisited')) {
+      const res = await api('addVisitor');
+      if (res.success) {
+        count = res.count;
+        sessionStorage.setItem('hasVisited', 'true');
+      }
+    } else {
+      const res = await api('getVisitorCount');
+      if (res.success) count = res.count;
+    }
+    el.textContent = count.toLocaleString('id-ID');
+  } catch (err) {
+    el.textContent = 'Gagal dimuat';
+  }
+}
+
+async function loadSettings(){
+ try{
+  const res=await api('getSettings');
+  if(!res.success)throw new Error(res.message||'Gagal mengambil pengaturan');
+  const s=normalizeSettings(res.data);
+  const put=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value??'-'};
+
+  put('schoolName',s.school_short_name||'MA. Ash Shidiqi');
+  put('heroTagline',s.tagline||"Mencetak Generasi Qur'ani & Berprestasi");
+  put('headmasterName',s.headmaster_name||'Kepala Madrasah');
+  put('headmasterGreeting',s.headmaster_greeting||"Assalamu'alaikum warahmatullahi wabarakatuh.");
+  put('contactAddress',s.address||'-');put('contactPhone',s.phone||'-');put('contactEmail',s.email||'-');
+  put('topbarEmail',s.email||'-');put('topbarPhone',s.phone||'-');
+
+  const photo=document.getElementById('headmasterPhoto');
+  photo.onerror=()=>{photo.onerror=null;photo.src=fallbackAvatar(s.headmaster_name||'Kepala Madrasah',300)};
+  if(s.headmaster_photo&&String(s.headmaster_photo).trim()){
+   photo.src=getDirectImageUrl(s.headmaster_photo);
+  }else{
+   photo.src=fallbackAvatar(s.headmaster_name||'Kepala Madrasah',300);
+  }
+
+  const logo=document.getElementById('schoolLogo');
+  logo.onerror=()=>{logo.onerror=null;logo.src=fallbackAvatar('MA',100)};
+  if(s.logo_url&&String(s.logo_url).trim()){
+   logo.src=getDirectImageUrl(s.logo_url);
+  }else{
+   logo.src=fallbackAvatar('MA',100);
+  }
+
+  const mapSrc=safeMapsUrl(s.maps_embed);
+  if(mapSrc){
+   const map=document.getElementById('mapContainer');map.innerHTML='';
+   const frame=document.createElement('iframe');
+   frame.src=mapSrc;frame.width='100%';frame.height='100%';
+   frame.style.border='0';frame.loading='lazy';frame.allowFullscreen=true;
+   map.appendChild(frame);
+  }
+ }catch(err){console.error('loadSettings:',err)}
+}
+
+async function loadTeachers(){
+ const grid=document.getElementById('teachersGrid');
+ try{
+  const res=await api('getTeachers');if(!res.success)throw new Error(res.message);
+  if(!res.data?.length){grid.innerHTML='<p class="col-span-full text-center text-gray-700 font-medium py-8">Belum ada data guru.</p>';return}
+  grid.innerHTML=res.data.map(t=>{
+   const photoUrl=getDirectImageUrl(t.photo)||fallbackAvatar(t.name);
+   return `<button type="button" data-id="${escapeHtml(t.id)}" class="teacher-card text-center bg-white rounded-xl md:rounded-2xl shadow-md p-3 md:p-6 card-hover border border-gray-100">
+     <img src="${escapeHtml(photoUrl)}" onerror="this.src='${fallbackAvatar('Guru')}'" class="w-16 h-16 md:w-24 md:h-24 rounded-full mx-auto object-cover border-2 md:border-4 border-gold shadow-sm">
+     <h3 class="font-bold text-gray-800 mt-2 md:mt-4 text-xs md:text-base line-clamp-2 md:line-clamp-1">${escapeHtml(t.name)}</h3>
+     <p class="text-[10px] md:text-sm text-primary font-medium mt-1 line-clamp-1">${escapeHtml(t.position||'-')}</p>
+   </button>`;
+  }).join('');
+ }catch(err){grid.innerHTML='<p class="col-span-full text-center text-red-600 font-medium py-8">Gagal memuat data guru.</p>';console.error(err)}
+}
+
+async function openTeacherDetail(id){
+ showPage('detail-guru');const res=await api('getTeachers');const t=(res.data||[]).find(x=>String(x.id)===String(id));if(!t)return;
+ document.getElementById('teacherDetailName').textContent=t.name||'-';
+ document.getElementById('teacherDetailPosition').textContent=t.position||'-';
+ document.getElementById('teacherDetailNip').textContent=t.nip||'-';
+ document.getElementById('teacherDetailSubject').textContent=t.subject||'-';
+ document.getElementById('teacherDetailPhoto').src=getDirectImageUrl(t.photo)||fallbackAvatar(t.name,300);
+}
+
+async function loadNews(){
+ try{
+  const res=await api('getNews');if(!res.success)throw new Error(res.message);
+  const newsData=res.data?res.data.slice().reverse():[];
+
+  const gridHome=document.getElementById('newsGrid');
+  if(!newsData.length){gridHome.innerHTML='<p class="col-span-full text-center text-gray-700 font-medium py-8">Belum ada berita.</p>';}
+  else{
+   gridHome.innerHTML=newsData.slice(0,6).map(n=>{
+    const imgUrl=getDirectImageUrl(n.image)||'https://via.placeholder.com/400x200?text=Berita';
+    const newsDate = n.published_at || n.date || n.created_at || '';
+    return `<article data-id="${escapeHtml(n.id)}" class="news-card cursor-pointer card-hover bg-white rounded-xl overflow-hidden shadow border border-gray-100 flex flex-col">
+      <div class="relative h-32 md:h-36 overflow-hidden">
+        <img src="${escapeHtml(imgUrl)}" class="w-full h-full object-cover" alt="">
+        <span class="absolute top-2 left-2 text-[9px] md:text-[10px] font-bold text-primary-dark bg-gold px-2 py-1 rounded shadow-sm">${escapeHtml(n.category||'Umum')}</span>
+      </div>
+      <div class="p-3 md:p-4 flex-grow flex flex-col">
+        <p class="text-gray-500 text-[10px] md:text-xs mb-2"><i class="far fa-calendar-alt mr-1"></i> ${escapeHtml(newsDate)}</p>
+        <h3 class="font-bold text-xs md:text-sm text-gray-800 mb-1.5 md:mb-2 line-clamp-2 hover:text-primary transition leading-snug">${escapeHtml(n.title)}</h3>
+        <p class="text-gray-500 text-[10px] md:text-xs mb-2 md:mb-3 line-clamp-2 flex-grow">${escapeHtml(n.excerpt||'')}</p>
+        <span class="text-primary font-bold text-[10px] md:text-[11px] mt-auto">Baca <i class="fas fa-arrow-right ml-1 text-[8px] md:text-[9px]"></i></span>
+      </div>
+    </article>`;
+   }).join('');
+  }
+
+  const gridFull=document.getElementById('newsGridFull');
+  if(!newsData.length){gridFull.innerHTML='<p class="col-span-full text-center text-gray-700 font-medium py-8">Belum ada berita.</p>';}
+  else{
+   gridFull.innerHTML=newsData.map(n=>{
+    const imgUrl=getDirectImageUrl(n.image)||'https://via.placeholder.com/600x300?text=Berita';
+    const newsDate = n.published_at || n.date || n.created_at || '';
+    return `<article data-id="${escapeHtml(n.id)}" class="news-card cursor-pointer card-hover bg-white rounded-xl overflow-hidden shadow border border-gray-100 flex flex-col">
+      <div class="relative h-40 md:h-48 overflow-hidden">
+        <img src="${escapeHtml(imgUrl)}" class="w-full h-full object-cover" alt="">
+        <span class="absolute top-3 md:top-4 left-3 md:left-4 text-[10px] md:text-xs font-bold text-primary-dark bg-gold px-2 md:px-3 py-1 rounded shadow-sm">${escapeHtml(n.category||'Umum')}</span>
+      </div>
+      <div class="p-4 md:p-5 flex-grow flex flex-col">
+        <p class="text-gray-500 text-[10px] md:text-xs mb-2"><i class="far fa-calendar-alt mr-1"></i> ${escapeHtml(newsDate)}</p>
+        <h3 class="font-bold text-sm md:text-lg text-gray-800 mb-2 line-clamp-2 hover:text-primary transition">${escapeHtml(n.title)}</h3>
+        <p class="text-gray-500 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2 flex-grow">${escapeHtml(n.excerpt||'')}</p>
+        <span class="text-primary font-bold text-xs md:text-sm mt-auto">Baca Selengkapnya <i class="fas fa-arrow-right ml-1 text-[10px] md:text-xs"></i></span>
+      </div>
+    </article>`;
+   }).join('');
+  }
+ }catch(err){
+  console.error(err);
+  const errMsg='<p class="col-span-full text-center text-red-600 font-medium py-8">Gagal memuat berita.</p>';
+  if(document.getElementById('newsGrid'))document.getElementById('newsGrid').innerHTML=errMsg;
+  if(document.getElementById('newsGridFull'))document.getElementById('newsGridFull').innerHTML=errMsg;
+ }
+}
+
+async function openNewsDetail(id){
+ showPage('detail-berita');document.getElementById('detailTitle').textContent='Memuat berita...';
+ const res=await api('getNews');const n=(res.data||[]).find(x=>String(x.id)===String(id));if(!n)return;
+ document.getElementById('detailTitle').textContent=n.title||'';
+ document.getElementById('detailCategory').textContent=n.category||'Umum';
+ const newsDate = n.published_at || n.date || n.created_at || '-';
+ document.getElementById('detailDate').innerHTML=`<i class="far fa-calendar-alt mr-2"></i> ${escapeHtml(newsDate)}`;
+ document.getElementById('detailContent').textContent=n.content||n.excerpt||'Tidak ada konten.';
+ const img=document.getElementById('detailImage');
+ const src=safeUrl(n.image);
+ if(src){img.src=src;img.classList.remove('hidden');}else{img.classList.add('hidden');}
+}
+
+async function loadAnnouncements(){
+ const list=document.getElementById('announcementList');
+ try{
+  const res=await api('getAnnouncements');if(!res.success)throw new Error(res.message);
+  if(!res.data?.length){list.innerHTML='<p class="text-center text-gray-700 font-medium py-8">Belum ada pengumuman.</p>';return}
+  list.innerHTML=res.data.map(a=>`<div class="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100 border-l-4 border-gold flex flex-col md:flex-row gap-3 md:gap-4 items-start"><div class="bg-yellow-50 text-gold w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-bullhorn text-lg md:text-xl"></i></div><div><h3 class="font-bold text-sm md:text-lg text-gray-800 mb-1">${escapeHtml(a.title)}</h3><p class="text-xs md:text-sm text-gray-600 whitespace-pre-line">${escapeHtml(a.content)}</p><p class="text-[10px] md:text-xs text-gray-400 mt-2 md:mt-3"><i class="far fa-clock mr-1"></i> ${escapeHtml(a.date||'-')}</p></div></div>`).join('');
+ }catch(err){list.innerHTML='<p class="text-center text-red-600 font-medium py-8">Gagal memuat pengumuman.</p>';console.error(err)}
+}
+
+async function loadGallery(){
+ const grid=document.getElementById('galleryGrid');
+ try{
+  const res=await api('getGallery');if(!res.success)throw new Error(res.message);
+  if(!res.data?.length){grid.innerHTML='<p class="col-span-full text-center text-gray-700 font-medium py-8">Belum ada foto galeri.</p>';return}
+  grid.innerHTML=res.data.map(g=>{
+   const imgUrl=getDirectImageUrl(g.url)||'https://via.placeholder.com/400x300?text=Galeri';
+   return `<div class="bg-white rounded-xl md:rounded-2xl shadow-md card-hover overflow-hidden border border-gray-100 group"><div class="overflow-hidden h-48 md:h-56"><img src="${escapeHtml(imgUrl)}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt=""></div><div class="p-3 md:p-5 text-center"><h4 class="font-bold text-sm md:text-lg text-gray-800 line-clamp-1">${escapeHtml(g.title||'Tanpa Judul')}</h4><p class="text-[10px] md:text-sm text-gray-500 mt-1 md:mt-2 line-clamp-2">${escapeHtml(g.description||'')}</p></div></div>`;
+  }).join('');
+ }catch(err){grid.innerHTML='<p class="col-span-full text-center text-red-600 font-medium py-8">Gagal memuat galeri.</p>';console.error(err)}
+}
+
+async function loadDocuments(){
+ try{
+  const res=await api('getDocuments');
+  if(!res.success)throw new Error(res.message);
+  const docs=res.data||[];
+
+  const bseGrid=document.getElementById('bseGrid');
+  const bseDocs=docs.filter(d=>String(d.category).toUpperCase()==='BSE');
+  if(!bseDocs.length){
+   bseGrid.innerHTML='<p class="col-span-full text-center text-gray-700 font-medium py-8">Belum ada buku BSE.</p>';
+  }else{
+   bseGrid.innerHTML=bseDocs.map(d=>{
+    const href=safeUrl(d.url);
+    return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" class="bg-white p-5 md:p-6 rounded-xl md:rounded-2xl shadow-md border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition duration-300 flex flex-col items-center text-center group">
+      <div class="w-12 h-12 md:w-16 md:h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform"><i class="fas fa-book text-xl md:text-3xl"></i></div>
+      <h3 class="font-bold text-sm md:text-lg text-gray-800 mb-1 md:mb-2">${escapeHtml(d.title)}</h3>
+      <p class="text-[10px] md:text-sm text-gray-500">${escapeHtml(d.description)}</p>
+    </a>`;
+   }).join('');
+  }
+
+  const downloadList=document.getElementById('downloadList');
+  const dlDocs=docs.filter(d=>String(d.category).toUpperCase()==='DOWNLOAD');
+  if(!dlDocs.length){
+   downloadList.innerHTML='<p class="text-center text-gray-700 font-medium py-8">Belum ada file unduhan.</p>';
+  }else{
+   downloadList.innerHTML=dlDocs.map(d=>{
+    const href=safeUrl(d.url);
+    return `<div class="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-0 hover:shadow-md transition">
+      <div class="flex items-center gap-3 md:gap-4">
+        <div class="w-10 h-10 md:w-12 md:h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center shrink-0"><i class="fas fa-file-pdf text-lg md:text-xl"></i></div>
+        <div>
+          <h4 class="font-bold text-xs md:text-base text-gray-800 line-clamp-1">${escapeHtml(d.title)}</h4>
+          <p class="text-[10px] md:text-xs text-gray-500">${escapeHtml(d.description)}</p>
+        </div>
+      </div>
+      <a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" class="btn-primary w-full md:w-auto text-center px-4 py-2 rounded-lg text-xs md:text-sm font-semibold"><i class="fas fa-download mr-2"></i> Unduh</a>
+    </div>`;
+   }).join('');
+  }
+ }catch(err){
+  console.error('loadDocuments:',err);
+  document.getElementById('bseGrid').innerHTML='<p class="col-span-full text-center text-red-600 font-medium py-8">Gagal memuat data BSE.</p>';
+  document.getElementById('downloadList').innerHTML='<p class="text-center text-red-600 font-medium py-8">Gagal memuat data Download.</p>';
+ }
+}
+
+function fileToB64(file){
+ return new Promise((resolve,reject)=>{
+  const reader=new FileReader();
+  reader.onload=()=>resolve(reader.result.split(',')[1]);
+  reader.onerror=()=>reject(new Error('Gagal membaca file '+file.name));
+  reader.readAsDataURL(file);
+ });
+}
+
+async function uploadOne(file,publicUpload=false,phone=''){
+ if(!file)return '';
+ if(file.size>5*1024*1024)throw new Error(file.name+' melebihi 5 MB.');
+ if(!ALLOWED_MIME.includes(file.type))throw new Error('Format '+file.name+' tidak diizinkan.');
+ const base64=await fileToB64(file);
+ const params={fileName:file.name,mimeType:file.type,fileData:base64};
+ if(publicUpload&&phone)params.phone=phone;
+ const res=await api(publicUpload?'uploadPPDBFile':'uploadFile',params,!publicUpload);
+ if(!res.success)throw new Error(res.message||'Upload gagal.');
+ return res.url;
+}
+
+document.getElementById('ppdbForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const form=e.target,btn=document.getElementById('btnSubmitPPDB'),status=document.getElementById('ppdbStatus');
+ btn.disabled=true;status.textContent='Mengunggah berkas...';
+ try{
+  const uploads=[
+   ['file_pas_foto','pas_foto',true],['file_kk','kk_file',true],
+   ['file_ijazah','ijazah_file',true],['file_pip','pip_file',false]
+  ];
+  const data=Object.fromEntries(new FormData(form).entries());
+  const phone=data.phone||'';
+  for(const [input,key,required] of uploads){
+   const file=document.getElementById(input).files[0];
+   if(required&&!file)throw new Error('Berkas wajib belum dipilih: '+input);
+   if(file)data[key]=await uploadOne(file,true,phone);
+  }
+  status.textContent='Menyimpan pendaftaran...';
+  const res=await api('submitPPDB',{data});
+  if(!res.success)throw new Error(res.message);
+  alert('Pendaftaran berhasil. Nomor pendaftaran: '+res.registration_number);
+  form.reset();closeModal('ppdbModal');status.textContent='';
+ }catch(err){status.textContent=err.message;alert('Pendaftaran gagal: '+err.message)}
+ finally{btn.disabled=false;btn.textContent='Kirim Pendaftaran'}
+});
+</script>
+</body>
+</html>
