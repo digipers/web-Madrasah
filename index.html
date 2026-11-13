@@ -25,6 +25,7 @@ tailwind.config={
 }
 </script>
 <style>
+/* Background Aqua */
 body{font-family:Inter,sans-serif; background-color: #00FFFF;}
 h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
 .hero-bg {
@@ -82,7 +83,8 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
       <button onclick="openPPDBForm()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold shadow-md transition duration-300 ml-2">PPDB</button>
     </nav>
 
-    <button id="menuBtn" class="lg:hidden text-2xl text-primary p-2 focus:outline-none" aria-label="Buka menu"><i class="fas fa-bars"></i></button>
+    <!-- Tombol Hamburger (Warna Gelap agar terlihat jelas di HP) -->
+    <button id="menuBtn" class="lg:hidden text-2xl text-primary-dark p-2 focus:outline-none" aria-label="Buka menu"><i class="fas fa-bars"></i></button>
   </div>
 
   <nav id="mobileNav" class="hidden lg:hidden px-4 pb-4 bg-white border-t border-gray-100 flex flex-col gap-1 text-base font-semibold text-blue-700 shadow-lg absolute w-full">
@@ -99,7 +101,7 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
   </nav>
 </header>
 
-<main class="pb-16">
+<main class="pb-16 w-full overflow-x-hidden">
 <!-- ================= HALAMAN BERANDA ================= -->
 <section id="page-beranda" class="page-section">
  <div class="hero-bg text-white py-10 md:py-16 relative">
@@ -112,19 +114,25 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
   </div>
  </div>
 
+ <!-- Pembungkus Konten Berita -->
  <div class="container mx-auto px-4 md:px-6 mt-8 md:mt-10">
-  <div class="grid lg:grid-cols-4 gap-6">
-    <div class="lg:col-span-3">
+  <div class="grid lg:grid-cols-4 gap-6 w-full">
+    
+    <!-- Kolom Kiri: Berita -->
+    <div class="lg:col-span-3 min-w-0">
       <div class="flex justify-between items-end mb-4 md:mb-6 border-b border-blue-800/20 pb-3">
         <div><h2 class="text-lg md:text-xl font-bold text-primary-dark mb-1">Berita Terbaru</h2></div>
       </div>
-      <div id="newsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5"><div class="loader col-span-full"></div></div>
+      <div id="newsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 w-full">
+        <div class="loader col-span-full"></div>
+      </div>
     </div>
 
+    <!-- Kolom Kanan: Sosial Media -->
     <div class="lg:col-span-1 mt-6 lg:mt-0">
       <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-5 sticky top-24">
         <h3 class="font-bold text-md text-gray-800 mb-3 border-b pb-2">Ikuti Kami</h3>
-        <div class="space-y-2 flex flex-row lg:flex-col gap-2 overflow-x-auto">
+        <div class="space-y-2 flex flex-row lg:flex-col gap-2 overflow-x-auto pb-2">
           <a href="https://youtube.com" target="_blank" class="group flex items-center gap-3 w-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md whitespace-nowrap"><div class="bg-white text-red-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-youtube"></i></div><span>YouTube</span></a>
           <a href="https://facebook.com" target="_blank" class="group flex items-center gap-3 w-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md whitespace-nowrap"><div class="bg-white text-blue-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-facebook-f"></i></div><span>Facebook</span></a>
           <a href="https://instagram.com" target="_blank" class="group flex items-center gap-3 w-full bg-pink-50 text-pink-600 hover:bg-pink-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md whitespace-nowrap"><div class="bg-white text-pink-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-instagram"></i></div><span>Instagram</span></a>
@@ -135,6 +143,7 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
         </div>
       </div>
     </div>
+
   </div>
  </div>
 </section>
@@ -142,7 +151,7 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
 <!-- ================= HALAMAN BERITA ================= -->
 <section id="page-berita" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12">
  <div class="text-center mb-10 md:mb-12"><h2 class="text-2xl md:text-3xl font-bold text-primary-dark mb-2">Semua Berita</h2><div class="w-16 h-1 bg-gold mx-auto rounded-full"></div></div>
- <div id="newsGridFull" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+ <div id="newsGridFull" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full">
    <div class="loader col-span-full"></div>
  </div>
 </section>
@@ -248,7 +257,6 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
         <i class="fas fa-eye text-gold mr-1"></i> Total Pengunjung: <span id="visitorCount" class="font-bold text-white">Memuat...</span>
       </p>
     </div>
-    <!-- Link ke Admin Panel disembunyikan/tidak ada di halaman publik -->
   </div>
 </footer>
 
@@ -290,7 +298,7 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
 </div>
 
 <script>
-const API_URL='https://script.google.com/macros/s/AKfycbxbBWp7Yw4SQ4KyQwMo-st0IDb4GUc9q3ARwVgX1quagn7Y33cG0F3FOv9rzwyZQFNG/exec';
+const API_URL='https://script.google.com/macros/s/AKfycbxbBWp7Yw4SQ4KyQwMo-st0IDb4GUc9q3ARwVgX1quagn7Y33cG0F3FOv9rzwyZQFNG/exec'; // GANTI DENGAN URL ANDA
 const ALLOWED_MIME=['image/jpeg','image/png','image/webp','application/pdf'];
 
 async function api(action,params={},useToken=false){
