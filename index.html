@@ -114,29 +114,52 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
   </div>
  </div>
 
- <!-- Pembungkus Konten Berita -->
+ <!-- Konten Utama Beranda -->
  <div class="container mx-auto px-4 md:px-6 mt-8 md:mt-10">
-  <div class="grid lg:grid-cols-4 gap-6 w-full">
+  
+  <!-- 
+    PERBAIKAN: 
+    - Di HP (default), kolom akan ditumpuk 1 baris ke bawah (flex-col).
+    - Di laptop/PC (lg:), baru dibagi jadi 4 kolom (lg:grid-cols-4).
+    - Menghapus w-full dan min-w-0 agar tidak ada dorongan horizontal.
+  -->
+  <div class="flex flex-col lg:grid lg:grid-cols-4 gap-6 lg:gap-8">
     
-    <!-- Kolom Kiri: Berita -->
-    <div class="lg:col-span-3 min-w-0">
+    <!-- Kolom Kiri: Berita (Lebar 3/4 di Laptop) -->
+    <div class="lg:col-span-3 w-full">
       <div class="flex justify-between items-end mb-4 md:mb-6 border-b border-blue-800/20 pb-3">
         <div><h2 class="text-lg md:text-xl font-bold text-primary-dark mb-1">Berita Terbaru</h2></div>
       </div>
-      <div id="newsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 w-full">
+      
+      <!-- Grid Berita -->
+      <div id="newsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
         <div class="loader col-span-full"></div>
       </div>
     </div>
 
-    <!-- Kolom Kanan: Sosial Media -->
-    <div class="lg:col-span-1 mt-6 lg:mt-0">
+    <!-- Kolom Kanan: Sosial Media (Lebar 1/4 di Laptop) -->
+    <div class="lg:col-span-1 w-full mt-6 lg:mt-0">
       <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-5 sticky top-24">
         <h3 class="font-bold text-md text-gray-800 mb-3 border-b pb-2">Ikuti Kami</h3>
-        <div class="space-y-2 flex flex-row lg:flex-col gap-2 overflow-x-auto pb-2">
-          <a href="https://youtube.com" target="_blank" class="group flex items-center gap-3 w-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md whitespace-nowrap"><div class="bg-white text-red-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-youtube"></i></div><span>YouTube</span></a>
-          <a href="https://facebook.com" target="_blank" class="group flex items-center gap-3 w-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md whitespace-nowrap"><div class="bg-white text-blue-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-facebook-f"></i></div><span>Facebook</span></a>
-          <a href="https://instagram.com" target="_blank" class="group flex items-center gap-3 w-full bg-pink-50 text-pink-600 hover:bg-pink-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md whitespace-nowrap"><div class="bg-white text-pink-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-instagram"></i></div><span>Instagram</span></a>
-          <a href="https://www.tiktok.com/@ma.ashshidiqi" target="_blank" class="group flex items-center gap-3 w-full bg-gray-100 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md whitespace-nowrap">
+        
+        <!-- Di HP: Sosmed memanjang ke bawah. Di Laptop: Sosmed memanjang ke bawah juga (flex-col) -->
+        <div class="flex flex-col gap-2">
+          <a href="https://youtube.com" target="_blank" class="group flex items-center gap-3 w-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md">
+            <div class="bg-white text-red-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-youtube"></i></div>
+            <span>YouTube</span>
+          </a>
+          
+          <a href="https://facebook.com" target="_blank" class="group flex items-center gap-3 w-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md">
+            <div class="bg-white text-blue-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-facebook-f"></i></div>
+            <span>Facebook</span>
+          </a>
+          
+          <a href="https://instagram.com" target="_blank" class="group flex items-center gap-3 w-full bg-pink-50 text-pink-600 hover:bg-pink-600 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md">
+            <div class="bg-white text-pink-600 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-instagram"></i></div>
+            <span>Instagram</span>
+          </a>
+          
+          <a href="https://www.tiktok.com/@ma.ashshidiqi" target="_blank" class="group flex items-center gap-3 w-full bg-gray-100 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg font-semibold text-xs md:text-sm transition-all duration-300 hover:shadow-md">
             <div class="bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0"><i class="fab fa-tiktok"></i></div>
             <span>TikTok</span>
           </a>
