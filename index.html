@@ -61,8 +61,8 @@
   </main>
 
   <script>
-    // GANTI URL DI BAWAH INI DENGAN URL WEB APP APPS SCRIPT ANDA
-    const API_URL = "https://script.google.com/macros/s/XXXXX/exec";
+    // URL WEB APP APPS SCRIPT ANDA
+    const API_URL = "https://script.google.com/macros/s/AKfycbwg6mq0FW2gABmf5ViHwONAOe8OIT4_xvfJiFNMsxs1XH78QtgkXFGtGuJTCwRG-DcA/exec";
 
     // Fungsi untuk memuat daftar berita
     async function loadDaftarBerita() {
@@ -70,7 +70,12 @@
       container.innerHTML = '<p class="text-center text-gray-500">Memuat berita...</p>';
       
       try {
+        // Google Apps Script membutuhkan metode GET biasa untuk CORS
         const response = await fetch(API_URL + "?action=getNews");
+        
+        // Cek jika response bukan JSON (misal error HTML dari Google)
+        if (!response.ok) throw new Error("HTTP error " + response.status);
+        
         const result = await response.json();
 
         if (result.success && result.data.length > 0) {
@@ -106,8 +111,8 @@
           container.innerHTML = '<p class="text-center text-gray-500">Belum ada berita.</p>';
         }
       } catch (error) {
-        console.error(error);
-        container.innerHTML = '<p class="text-center text-red-500">Gagal memuat berita.</p>';
+        console.error("Detail Error:", error);
+        container.innerHTML = '<p class="text-center text-red-500">Gagal memuat berita. Periksa koneksi atau pastikan Web App sudah di-deploy dengan akses "Anyone".</p>';
       }
     }
 
@@ -124,6 +129,8 @@
 
       try {
         const response = await fetch(API_URL + "?action=getNewsDetail&id=" + id);
+        if (!response.ok) throw new Error("HTTP error " + response.status);
+        
         const result = await response.json();
 
         if (result.success && result.data) {
@@ -143,7 +150,7 @@
           container.innerHTML = '<p class="text-center text-red-500">Berita tidak ditemukan.</p>';
         }
       } catch (error) {
-        console.error(error);
+        console.error("Detail Error:", error);
         container.innerHTML = '<p class="text-center text-red-500">Gagal memuat detail berita.</p>';
       }
     }
