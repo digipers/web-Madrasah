@@ -63,6 +63,13 @@ img, iframe, table, pre {
 /* Style untuk isi berita agar rapi */
 .berita-content img { max-width: 100% !important; height: auto !important; border-radius: 8px; margin: 20px auto; display: block; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
 .berita-content p { margin-bottom: 15px; line-height: 1.8; }
+
+/* PERBAIKAN: Memaksa gambar di card berita selalu ke tengah */
+.news-card img {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;
+}
 </style>
 </head>
 <body class="text-gray-800 antialiased overflow-x-hidden w-full">
@@ -142,7 +149,6 @@ img, iframe, table, pre {
       <div class="flex justify-between items-end mb-4 md:mb-6 border-b border-blue-800/20 pb-3">
         <div><h2 class="text-lg md:text-xl font-bold text-primary-dark mb-1">Berita Terbaru</h2></div>
       </div>
-      <!-- PERBAIKAN: Menambahkan w-full max-w-full -->
       <div id="newsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 w-full max-w-full"><div class="loader col-span-full"></div></div>
     </div>
 
@@ -198,7 +204,6 @@ img, iframe, table, pre {
 <section id="page-detail-berita" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12 max-w-4xl">
  <button onclick="showPage('berita')" class="mb-6 text-primary-dark font-bold hover:underline text-sm md:text-base"><i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar Berita</button>
  <article class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 w-full">
-  <!-- Gambar Utama (Hanya muncul jika diisi di Admin) -->
   <img id="detailImage" class="w-full max-h-[300px] md:max-h-[400px] object-cover hidden" alt="">
   <div class="p-6 md:p-10">
     <span id="detailCategory" class="text-[10px] md:text-xs font-bold text-primary bg-green-50 px-3 py-1.5 rounded-full uppercase tracking-wide">Umum</span>
@@ -248,7 +253,6 @@ img, iframe, table, pre {
 <!-- ================= HALAMAN GALERI ================= -->
 <section id="page-galeri" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12">
  <div class="text-center mb-8 md:mb-12"><h2 class="text-2xl md:text-3xl font-bold text-primary-dark mb-2">Galeri Kegiatan</h2><div class="w-16 h-1 bg-gold mx-auto rounded-full"></div></div>
- <!-- PERBAIKAN: Menambahkan w-full max-w-full pada galleryGrid -->
  <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full max-w-full"><div class="loader col-span-full"></div></div>
 </section>
 
@@ -281,7 +285,6 @@ img, iframe, table, pre {
 </footer>
 
 <!-- ================= MODALS ================= -->
-<!-- PPDB, Login, CRUD, Admin Dashboard -->
 <div id="ppdbModal" class="hidden fixed inset-0 bg-black/70 z-[990] flex items-center justify-center p-2 md:p-3 backdrop-blur-sm">
  <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[95vh] overflow-y-auto shadow-2xl">
   <div class="sticky top-0 bg-white p-4 md:p-5 border-b flex justify-between items-center z-10 rounded-t-2xl"><h3 class="text-lg md:text-xl font-bold text-primary">Formulir Pendaftaran PPDB</h3><button onclick="closeModal('ppdbModal')" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-red-100 hover:text-red-600 transition text-xl font-bold">&times;</button></div>
@@ -601,9 +604,11 @@ async function loadNews(){
    gridHome.innerHTML=newsData.slice(0,6).map(n=>{
     const imgUrl=getDirectImageUrl(n.image)||'https://via.placeholder.com/400x200?text=Berita';
     const newsDate = n.published_at || n.date || n.created_at || '';
+    
+    // PERBAIKAN: Struktur gambar dibuat lebih sederhana dan dipaksa center
     return `<article data-id="${escapeHtml(n.id)}" class="news-card cursor-pointer card-hover bg-white rounded-xl overflow-hidden shadow border border-gray-100 flex flex-col w-full max-w-full">
-      <div class="relative w-full bg-gray-100 flex items-center justify-center overflow-hidden">
-        <img src="${escapeHtml(imgUrl)}" class="w-full h-auto max-h-64 object-contain" alt="">
+      <div class="relative w-full bg-gray-100 flex items-center justify-center overflow-hidden h-48 md:h-56">
+        <img src="${escapeHtml(imgUrl)}" class="w-full h-full object-contain mx-auto" alt="">
         <span class="absolute top-2 left-2 text-[9px] md:text-[10px] font-bold text-primary-dark bg-gold px-2 py-1 rounded shadow-sm">${escapeHtml(n.category||'Umum')}</span>
       </div>
       <div class="p-3 md:p-4 flex-grow flex flex-col">
@@ -622,9 +627,11 @@ async function loadNews(){
    gridFull.innerHTML=newsData.map(n=>{
     const imgUrl=getDirectImageUrl(n.image)||'https://via.placeholder.com/600x300?text=Berita';
     const newsDate = n.published_at || n.date || n.created_at || '';
+    
+    // PERBAIKAN: Struktur gambar dibuat lebih sederhana dan dipaksa center
     return `<article data-id="${escapeHtml(n.id)}" class="news-card cursor-pointer card-hover bg-white rounded-xl overflow-hidden shadow border border-gray-100 flex flex-col w-full max-w-full">
-      <div class="relative w-full bg-gray-100 flex items-center justify-center overflow-hidden">
-        <img src="${escapeHtml(imgUrl)}" class="w-full h-auto max-h-80 object-contain" alt="">
+      <div class="relative w-full bg-gray-100 flex items-center justify-center overflow-hidden h-48 md:h-64">
+        <img src="${escapeHtml(imgUrl)}" class="w-full h-full object-contain mx-auto" alt="">
         <span class="absolute top-3 md:top-4 left-3 md:left-4 text-[10px] md:text-xs font-bold text-primary-dark bg-gold px-2 md:px-3 py-1 rounded shadow-sm">${escapeHtml(n.category||'Umum')}</span>
       </div>
       <div class="p-4 md:p-5 flex-grow flex flex-col">
@@ -709,7 +716,7 @@ async function loadGallery(){
        break;
      }
    }
-   return `<div class="bg-white rounded-xl md:rounded-2xl shadow-md card-hover overflow-hidden border border-gray-100 group w-full max-w-full"><div class="overflow-hidden h-48 md:h-56 bg-gray-100 flex items-center justify-center"><img src="${escapeHtml(imgUrl)}" class="w-full h-full object-contain group-hover:scale-110 transition duration-500" alt=""></div><div class="p-3 md:p-5 text-center"><h4 class="font-bold text-sm md:text-lg text-gray-800 line-clamp-1">${escapeHtml(g.title||'Tanpa Judul')}</h4><p class="text-[10px] md:text-sm text-gray-500 mt-1 md:mt-2 line-clamp-2">${escapeHtml(g.description||'')}</p>${tanggal?`<p class="text-[10px] md:text-xs text-gray-400 mt-2"><i class="far fa-calendar-alt mr-1"></i>${escapeHtml(tanggal)}</p>`:''}</div></div>`;
+   return `<div class="bg-white rounded-xl md:rounded-2xl shadow-md card-hover overflow-hidden border border-gray-100 group w-full max-w-full"><div class="overflow-hidden h-48 md:h-56 bg-gray-100 flex items-center justify-center"><img src="${escapeHtml(imgUrl)}" class="w-full h-full object-contain group-hover:scale-110 transition duration-500 mx-auto" alt=""></div><div class="p-3 md:p-5 text-center"><h4 class="font-bold text-sm md:text-lg text-gray-800 line-clamp-1">${escapeHtml(g.title||'Tanpa Judul')}</h4><p class="text-[10px] md:text-sm text-gray-500 mt-1 md:mt-2 line-clamp-2">${escapeHtml(g.description||'')}</p>${tanggal?`<p class="text-[10px] md:text-xs text-gray-400 mt-2"><i class="far fa-calendar-alt mr-1"></i>${escapeHtml(tanggal)}</p>`:''}</div></div>`;
   }).join('');
  }catch(err){grid.innerHTML='<p class="col-span-full text-center text-red-600 font-medium py-8">Gagal memuat galeri.</p>';console.error(err)}
 }
