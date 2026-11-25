@@ -43,8 +43,8 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
 .loader{border:3px solid #eee;border-top:3px solid #0B5D3B;border-radius:50%;width:36px;height:36px;animation:spin 1s linear infinite;margin:20px auto}
 @keyframes spin{to{transform:rotate(360deg)}}
 .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-/* Style untuk isi berita agar rapi */
-.berita-content img { max-width: 100%; height: auto; border-radius: 8px; margin: 15px 0; display: block; }
+/* Style untuk isi berita agar rapi (termasuk gambar di tengah teks) */
+.berita-content img { max-width: 100%; height: auto; border-radius: 8px; margin: 20px auto; display: block; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
 .berita-content p { margin-bottom: 15px; line-height: 1.8; }
 </style>
 </head>
@@ -180,12 +180,13 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
 <section id="page-detail-berita" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12 max-w-4xl">
  <button onclick="showPage('berita')" class="mb-6 text-primary-dark font-bold hover:underline text-sm md:text-base"><i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar Berita</button>
  <article class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+  <!-- Gambar Utama (Hanya muncul jika diisi di Admin) -->
   <img id="detailImage" class="w-full max-h-[300px] md:max-h-[400px] object-cover hidden" alt="">
   <div class="p-6 md:p-10">
     <span id="detailCategory" class="text-[10px] md:text-xs font-bold text-primary bg-green-50 px-3 py-1.5 rounded-full uppercase tracking-wide">Umum</span>
     <h1 id="detailTitle" class="text-xl md:text-3xl font-bold text-gray-800 mt-3 md:mt-4 mb-2 md:mb-3 leading-snug"></h1>
     <p id="detailDate" class="text-xs md:text-sm text-gray-500 mb-6 md:mb-8 border-b pb-4"><i class="far fa-calendar-alt mr-2"></i> -</p>
-    <div id="detailContent" class="berita-content text-gray-700 leading-relaxed whitespace-pre-line text-justify text-sm md:text-lg"></div>
+    <div id="detailContent" class="berita-content text-gray-700 leading-relaxed text-justify text-sm md:text-lg"></div>
   </div>
  </article>
 </section>
@@ -261,6 +262,7 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
 </footer>
 
 <!-- ================= MODALS ================= -->
+<!-- PPDB, Login, CRUD, Admin Dashboard (Tidak ada perubahan di bagian ini) -->
 <div id="ppdbModal" class="hidden fixed inset-0 bg-black/70 z-[990] flex items-center justify-center p-2 md:p-3 backdrop-blur-sm">
  <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[95vh] overflow-y-auto shadow-2xl">
   <div class="sticky top-0 bg-white p-4 md:p-5 border-b flex justify-between items-center z-10 rounded-t-2xl"><h3 class="text-lg md:text-xl font-bold text-primary">Formulir Pendaftaran PPDB</h3><button onclick="closeModal('ppdbModal')" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-red-100 hover:text-red-600 transition text-xl font-bold">&times;</button></div>
@@ -274,7 +276,6 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
     <label class="text-xs md:text-sm font-medium text-gray-700 md:col-span-2">Alamat Lengkap *<textarea name="address" required rows="2" class="field"></textarea></label>
     <label class="text-xs md:text-sm font-medium text-gray-700">Asal Sekolah *<input name="previous_school" required class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">Tahun Lulus *<input name="tahun_lulus" type="number" required class="field"></label>
    </div>
-
    <div class="bg-green-50 p-3 md:p-4 rounded-xl border border-green-100 mt-6 md:mt-8 mb-4 md:mb-6"><h4 class="font-bold text-primary text-sm md:text-base">B. Data Orang Tua / Wali</h4></div>
    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
     <label class="text-xs md:text-sm font-medium text-gray-700">Nama Ayah *<input name="father_name" required class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">NIK Ayah<input name="nik_ayah" class="field"></label>
@@ -283,7 +284,6 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
     <label class="text-xs md:text-sm font-medium text-gray-700">Nama Wali<input name="nama_wali" class="field"></label><label class="text-xs md:text-sm font-medium text-gray-700">No. HP Orang Tua *<input name="hp_ortu" required class="field"></label>
     <label class="text-xs md:text-sm font-medium text-gray-700 md:col-span-2">Alamat Orang Tua<textarea name="alamat_ortu" rows="2" class="field"></textarea></label>
    </div>
-
    <div class="bg-green-50 p-3 md:p-4 rounded-xl border border-green-100 mt-6 md:mt-8 mb-4 md:mb-6"><h4 class="font-bold text-primary text-sm md:text-base">C. Berkas Persyaratan (Maks 5 MB)</h4></div>
    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
     <label class="text-xs md:text-sm font-medium text-gray-700">Pas Foto 3x4 *<input type="file" id="file_pas_foto" accept="image/*" required class="field p-2 text-xs"></label>
@@ -333,7 +333,7 @@ h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif}
 </div>
 
 <script>
-// PASTIKAN URL DI BAWAH INI ADALAH URL WEB APP ANDA
+// PASTIKAN URL DI BAWAH INI ADALAH URL WEB APP ANDA YANG TERBARU
 const API_URL='https://script.google.com/macros/s/AKfycbwg6mq0FW2gABmf5ViHwONAOe8OIT4_xvfJiFNMsxs1XH78QtgkXFGtGuJTCwRG-DcA/exec';
 const TOKEN_KEY='ma_admin_token';
 const ALLOWED_MIME=['image/jpeg','image/png','image/webp','application/pdf'];
@@ -417,6 +417,53 @@ function safeMapsUrl(url){
 function normalizeSettings(data){
  if(Array.isArray(data))return data[0]||{};
  return data||{};
+}
+
+/* ===== FUNGSI BANTU: MENGURUTKAN GALERI TERBARU DI ATAS ===== */
+function sortGalleryNewestFirst(items){
+  if(!Array.isArray(items)) return [];
+  // Prioritas field tanggal: date, created_at, timestamp, published_at
+  const dateKeys = ['date','created_at','timestamp','published_at','datetime','uploaded_at'];
+  function getDateValue(item){
+    for(const k of dateKeys){
+      if(item && item[k] !== undefined && item[k] !== null && String(item[k]).trim() !== ''){
+        const v = item[k];
+        // coba parse sebagai angka (timestamp) atau string tanggal
+        if(typeof v === 'number' || (!isNaN(v) && String(v).trim() !== '')){
+          const num = Number(v);
+          // kalau timestamp dalam detik (10 digit), konversi ke ms
+          if(!isNaN(num)){
+            if(num > 1e9 && num < 1e12) return num * 1000;
+            if(num >= 1e12) return num;
+          }
+        }
+        const t = new Date(v).getTime();
+        if(!isNaN(t)) return t;
+      }
+    }
+    return null;
+  }
+  // Cek apakah ada minimal satu item yang punya tanggal valid
+  const hasDate = items.some(it => getDateValue(it) !== null);
+  if(hasDate){
+    return items.slice().sort((a,b)=>{
+      const da = getDateValue(a);
+      const db = getDateValue(b);
+      if(da === null && db === null) return 0;
+      if(da === null) return 1;   // yang tanpa tanggal ditaruh bawah
+      if(db === null) return -1;
+      return db - da;             // descending: terbaru dulu
+    });
+  }
+  // Fallback: urutkan berdasarkan id numerik descending (id terbesar = terbaru)
+  return items.slice().sort((a,b)=>{
+    const ia = Number(a?.id);
+    const ib = Number(b?.id);
+    if(!isNaN(ia) && !isNaN(ib)) return ib - ia;
+    if(!isNaN(ia)) return -1;
+    if(!isNaN(ib)) return 1;
+    return 0;
+  });
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
@@ -540,7 +587,6 @@ async function loadNews(){
    gridHome.innerHTML=newsData.slice(0,6).map(n=>{
     const imgUrl=getDirectImageUrl(n.image)||'https://via.placeholder.com/400x200?text=Berita';
     const newsDate = n.published_at || n.date || n.created_at || '';
-    // PERUBAHAN: object-contain dan tanpa tinggi fix (h-32 dihapus)
     return `<article data-id="${escapeHtml(n.id)}" class="news-card cursor-pointer card-hover bg-white rounded-xl overflow-hidden shadow border border-gray-100 flex flex-col">
       <div class="relative w-full bg-gray-100 flex items-center justify-center overflow-hidden">
         <img src="${escapeHtml(imgUrl)}" class="w-full h-auto max-h-64 object-contain" alt="">
@@ -562,7 +608,6 @@ async function loadNews(){
    gridFull.innerHTML=newsData.map(n=>{
     const imgUrl=getDirectImageUrl(n.image)||'https://via.placeholder.com/600x300?text=Berita';
     const newsDate = n.published_at || n.date || n.created_at || '';
-    // PERUBAHAN: object-contain dan tanpa tinggi fix (h-40 dihapus)
     return `<article data-id="${escapeHtml(n.id)}" class="news-card cursor-pointer card-hover bg-white rounded-xl overflow-hidden shadow border border-gray-100 flex flex-col">
       <div class="relative w-full bg-gray-100 flex items-center justify-center overflow-hidden">
         <img src="${escapeHtml(imgUrl)}" class="w-full h-auto max-h-80 object-contain" alt="">
@@ -588,17 +633,36 @@ async function loadNews(){
 async function openNewsDetail(id){
  showPage('detail-berita');document.getElementById('detailTitle').textContent='Memuat berita...';
  const res=await api('getNews');const n=(res.data||[]).find(x=>String(x.id)===String(id));if(!n)return;
+ 
  document.getElementById('detailTitle').textContent=n.title||'';
  document.getElementById('detailCategory').textContent=n.category||'Umum';
- const newsDate = n.published_at || n.date || n.created_at || '-';
+ 
+ // Perbaikan Tanggal Otomatis: Jika kosong, pakai tanggal hari ini
+ const newsDate = n.published_at || n.date || n.created_at || new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
  document.getElementById('detailDate').innerHTML=`<i class="far fa-calendar-alt mr-2"></i> ${escapeHtml(newsDate)}`;
  
- // PERUBAHAN: pakai innerHTML agar tag HTML (gambar) di dalam isi berita bisa muncul
- document.getElementById('detailContent').innerHTML=n.content||n.excerpt||'Tidak ada konten.';
+ // Perbaikan Isi Berita: Gunakan innerHTML agar tag <img> bisa terbaca
+ const content = n.content || n.excerpt || 'Tidak ada konten.';
+ document.getElementById('detailContent').innerHTML = content;
  
  const img=document.getElementById('detailImage');
- const src=safeUrl(n.image);
- if(src){img.src=src;img.classList.remove('hidden');}else{img.classList.add('hidden');}
+ let src = safeUrl(n.image);
+ 
+ // LOGIKA OTOMATIS: Jika Foto Utama kosong, cari gambar di dalam teks berita
+ if(!src && content.includes('<img')) {
+   const match = content.match(/<img[^>]+src="([^">]+)"/);
+   if(match && match[1]) {
+     src = safeUrl(match[1]);
+   }
+ }
+ 
+ // Tampilkan gambar jika ditemukan
+ if(src){
+   img.src=src;
+   img.classList.remove('hidden');
+ }else{
+   img.classList.add('hidden');
+ }
 }
 
 async function loadAnnouncements(){
@@ -610,14 +674,32 @@ async function loadAnnouncements(){
  }catch(err){list.innerHTML='<p class="text-center text-red-600 font-medium py-8">Gagal memuat pengumuman.</p>';console.error(err)}
 }
 
+/* ===== GALERI: DIPERBAIKI — URUTKAN DARI YANG TERBARU ===== */
 async function loadGallery(){
  const grid=document.getElementById('galleryGrid');
  try{
   const res=await api('getGallery');if(!res.success)throw new Error(res.message);
   if(!res.data?.length){grid.innerHTML='<p class="col-span-full text-center text-gray-700 font-medium py-8">Belum ada foto galeri.</p>';return}
-  grid.innerHTML=res.data.map(g=>{
+  // >>> PERUBAHAN UTAMA: Urutkan galeri dari yang paling baru <<<
+  const galleryData = sortGalleryNewestFirst(res.data);
+  grid.innerHTML=galleryData.map(g=>{
    const imgUrl=getDirectImageUrl(g.url)||'https://via.placeholder.com/400x300?text=Galeri';
-   return `<div class="bg-white rounded-xl md:rounded-2xl shadow-md card-hover overflow-hidden border border-gray-100 group"><div class="overflow-hidden h-48 md:h-56 bg-gray-100 flex items-center justify-center"><img src="${escapeHtml(imgUrl)}" class="w-full h-full object-contain group-hover:scale-110 transition duration-500" alt=""></div><div class="p-3 md:p-5 text-center"><h4 class="font-bold text-sm md:text-lg text-gray-800 line-clamp-1">${escapeHtml(g.title||'Tanpa Judul')}</h4><p class="text-[10px] md:text-sm text-gray-500 mt-1 md:mt-2 line-clamp-2">${escapeHtml(g.description||'')}</p></div></div>`;
+   // tampilkan tanggal jika ada
+   const dateKeys = ['date','created_at','timestamp','published_at','datetime','uploaded_at'];
+   let tanggal = '';
+   for(const k of dateKeys){
+     if(g && g[k] !== undefined && g[k] !== null && String(g[k]).trim() !== ''){
+       const raw = g[k];
+       const d = new Date(raw);
+       if(!isNaN(d.getTime())){
+         tanggal = d.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+       } else {
+         tanggal = String(raw);
+       }
+       break;
+     }
+   }
+   return `<div class="bg-white rounded-xl md:rounded-2xl shadow-md card-hover overflow-hidden border border-gray-100 group"><div class="overflow-hidden h-48 md:h-56 bg-gray-100 flex items-center justify-center"><img src="${escapeHtml(imgUrl)}" class="w-full h-full object-contain group-hover:scale-110 transition duration-500" alt=""></div><div class="p-3 md:p-5 text-center"><h4 class="font-bold text-sm md:text-lg text-gray-800 line-clamp-1">${escapeHtml(g.title||'Tanpa Judul')}</h4><p class="text-[10px] md:text-sm text-gray-500 mt-1 md:mt-2 line-clamp-2">${escapeHtml(g.description||'')}</p>${tanggal?`<p class="text-[10px] md:text-xs text-gray-400 mt-2"><i class="far fa-calendar-alt mr-1"></i>${escapeHtml(tanggal)}</p>`:''}</div></div>`;
   }).join('');
  }catch(err){grid.innerHTML='<p class="col-span-full text-center text-red-600 font-medium py-8">Gagal memuat galeri.</p>';console.error(err)}
 }
