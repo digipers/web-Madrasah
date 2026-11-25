@@ -64,11 +64,36 @@ img, iframe, table, pre {
 .berita-content img { max-width: 100% !important; height: auto !important; border-radius: 8px; margin: 20px auto; display: block; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
 .berita-content p { margin-bottom: 15px; line-height: 1.8; }
 
-/* PERBAIKAN: Memaksa gambar di card berita selalu ke tengah */
+/* PERBAIKAN: Memaksa gambar di card berita selalu ke tengah.
+   Dipaku dengan CSS langsung agar tidak bergantung pada kelas Tailwind
+   (w-full/h-full/object-contain) maupun aturan global img{height:auto}. */
 .news-card img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
   margin-left: auto !important;
   margin-right: auto !important;
   display: block !important;
+}
+
+/* PERBAIKAN: Gambar galeri juga dipaksa penuh & ke tengah */
+#galleryGrid img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  display: block;
+}
+
+/* PERBAIKAN: Foto utama halaman detail berita selalu di tengah */
+#detailImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  object-position: center center;
 }
 </style>
 </head>
@@ -90,7 +115,7 @@ img, iframe, table, pre {
 </div>
 
 <!-- HEADER / NAVBAR -->
-<header class="bg-white shadow-sm sticky top-0 z-40 w-full max-w-full overflow-hidden">
+<header class="bg-white shadow-sm sticky top-0 z-40 w-full max-w-full">
   <div class="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
     <a href="#" onclick="showPage('beranda');return false" class="flex items-center gap-2">
       <img id="schoolLogo" src="https://ui-avatars.com/api/?name=MA&size=100&background=0B5D3B&color=fff" class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-gold shadow-sm" alt="Logo sekolah">
@@ -116,7 +141,7 @@ img, iframe, table, pre {
     <button id="menuBtn" class="lg:hidden text-2xl text-primary p-2 focus:outline-none" aria-label="Buka menu"><i class="fas fa-bars"></i></button>
   </div>
 
-  <nav id="mobileNav" class="hidden lg:hidden px-4 pb-4 bg-white border-t border-gray-100 flex flex-col gap-1 text-base font-semibold text-blue-700 shadow-lg absolute w-full left-0">
+  <nav id="mobileNav" class="hidden lg:hidden px-4 pb-4 bg-white border-t border-gray-100 flex flex-col gap-1 text-base font-semibold text-blue-700 shadow-lg absolute top-full w-full left-0">
     <a href="#" onclick="showPage('beranda');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">Beranda</a>
     <a href="#" onclick="showPage('berita');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">Berita</a>
     <a href="#" onclick="showPage('profil');return false" class="p-3 border-b border-gray-50 hover:bg-blue-50 rounded">Profil</a>
@@ -144,7 +169,7 @@ img, iframe, table, pre {
  </div>
 
  <div class="container mx-auto px-4 md:px-6 mt-8 md:mt-10">
-  <div class="grid lg:grid-cols-4 gap-6">
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
     <div class="lg:col-span-3">
       <div class="flex justify-between items-end mb-4 md:mb-6 border-b border-blue-800/20 pb-3">
         <div><h2 class="text-lg md:text-xl font-bold text-primary-dark mb-1">Berita Terbaru</h2></div>
@@ -221,7 +246,7 @@ img, iframe, table, pre {
    <div class="w-16 h-1 bg-gold mx-auto rounded-full"></div>
  </div>
  
- <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 md:gap-10 bg-white p-6 md:p-10 rounded-2xl shadow-lg border border-gray-100 items-start">
+ <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 bg-white p-6 md:p-10 rounded-2xl shadow-lg border border-gray-100 items-start">
   <div class="text-center sticky top-24">
     <img id="headmasterPhoto" src="https://ui-avatars.com/api/?name=Kepala+Madrasah&size=300&background=0B5D3B&color=fff" class="w-40 h-40 md:w-56 md:h-56 rounded-full mx-auto object-cover border-4 border-gold shadow-xl" alt="Foto Kepala Madrasah">
     <h3 id="headmasterName" class="mt-4 md:mt-6 font-bold text-xl md:text-2xl text-primary">Kepala Madrasah</h3>
@@ -259,7 +284,7 @@ img, iframe, table, pre {
 <!-- ================= HALAMAN KONTAK ================= -->
 <section id="page-kontak" class="page-section hidden container mx-auto px-4 md:px-6 py-10 md:py-12 max-w-5xl">
  <div class="text-center mb-8 md:mb-12"><h2 class="text-2xl md:text-3xl font-bold text-primary-dark mb-2">Kontak & Lokasi</h2><div class="w-16 h-1 bg-gold mx-auto rounded-full"></div></div>
- <div class="grid md:grid-cols-2 gap-6 md:gap-8 bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
    <div class="space-y-4 md:space-y-6">
      <div class="flex gap-3 md:gap-4 items-start"><div class="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-map-marker-alt text-primary text-sm md:text-base"></i></div><div><h4 class="font-bold text-gray-800 mb-1 text-sm md:text-base">Alamat</h4><p id="contactAddress" class="text-gray-600 text-xs md:text-sm leading-relaxed">-</p></div></div>
      <div class="flex gap-3 md:gap-4 items-start"><div class="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-phone text-primary text-sm md:text-base"></i></div><div><h4 class="font-bold text-gray-800 mb-1 text-sm md:text-base">Telepon</h4><p id="contactPhone" class="text-gray-600 text-xs md:text-sm">-</p></div></div>
